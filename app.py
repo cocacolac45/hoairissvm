@@ -1,11 +1,9 @@
-from fastapi import FastAPI, HTTPException, Header
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi import FastAPI, HTTPException, Header, Depends
 from database import get_db_connection, init_database
-
 
 import bcrypt
 import joblib
@@ -485,7 +483,6 @@ def change_password(
 # =========================================================
 # DELETE ACCOUNT
 # =========================================================
-
 @app.delete("/account")
 def delete_account(
     credentials: HTTPAuthorizationCredentials = Depends(security)
@@ -502,16 +499,6 @@ def delete_account(
 
     try:
 
-        # Xóa lịch sử dự đoán trước
-        cursor.execute(
-            """
-            DELETE FROM prediction_history
-            WHERE user_id = ?
-            """,
-            (user_id,)
-        )
-
-        # Xóa tài khoản
         cursor.execute(
             """
             DELETE FROM users
@@ -528,11 +515,8 @@ def delete_account(
 
         conn.commit()
 
-        # Xóa session hiện tại
-        sessions.pop(
-            token,
-            None
-        )
+        # Xóa session
+        sessions.pop(token, None)
 
         return {
             "message": "Tài khoản đã được xóa thành công"
@@ -862,9 +846,7 @@ def clear_history(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
-    user = get_current_user(
-        credentials
-    )
+    user = get_current_user(credentials)
 
     user_id = user["user_id"]
 
@@ -886,11 +868,8 @@ def clear_history(
         conn.commit()
 
         return {
-            "message":
-                "Đã xóa lịch sử",
-
-            "deleted_count":
-                deleted_count
+            "message": "Đã xóa lịch sử",
+            "deleted_count": deleted_count
         }
 
     except Exception as e:
