@@ -1450,17 +1450,6 @@
             .model-intro-grid {
                 grid-template-columns: 1fr;
             }
-            .about-page-arrow {
-                width: 40px;
-                height: 40px;
-                font-size: 23px;
-            }
-            .about-page-arrow.left {
-                left: 8px;
-            }
-            .about-page-arrow.right {
-                right: 8px;
-            }
         }
 
         @media (max-width: 600px) {
@@ -1475,179 +1464,511 @@
             }
         }
 
+
         /* =========================================================
-           MINECRAFT STYLE - GIỮ NGUYÊN MÀU SẮC HIỆN TẠI
-           Chỉ thay đổi hình dáng các thành phần tương tác
+           REDESIGN TAB GIỚI THIỆU
+           Phong cách editorial / luxury, giữ nguyên màu và font hiện tại
            ========================================================= */
-        
-        /* ===== THANH MENU ===== */
-        .nav-link {
-            border-radius: 4px !important;
+        #tab-about {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
         }
-        
-        .nav-link.active {
-            border-radius: 4px !important;
+
+        #tab-about .about-page {
+            width: 100%;
+            animation: aboutPageSlideIn 0.45s ease;
         }
-        
-        /* ===== NÚT ĐĂNG KÝ / ĐĂNG NHẬP ===== */
-        .auth-btn {
-            border-radius: 4px !important;
+
+        /* Ẩn các thành phần cũ của tab giới thiệu nếu còn được giữ trong CSS */
+        #tab-about .flower-grid,
+        #tab-about .flower-card,
+        #tab-about .model-intro-grid,
+        #tab-about .model-intro-card {
+            display: none;
         }
-        
-        .logout-btn {
-            border-radius: 4px !important;
+
+        /* HERO */
+        .about-hero {
+            position: relative;
+            width: 100%;
+            min-height: calc(100vh - 110px);
+            max-height: 820px;
+            overflow: hidden;
+            background: var(--primary);
+            color: #EFEBE9;
         }
-        
-        /* ===== Ô CHỌN MÔ HÌNH ===== */
-        .model-option {
-            border-radius: 4px !important;
+
+        .about-hero-image,
+        .about-hero-overlay {
+            position: absolute;
+            inset: 0;
         }
-        
-        /* ===== RADIO MODEL → VUÔNG ===== */
-        .model-radio {
-            border-radius: 3px !important;
+
+        .about-hero-grid {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
         }
-        
-        .model-option.selected .model-radio {
-            border-radius: 3px !important;
+
+        .about-hero-grid img {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(0.86) contrast(0.94);
+            transition: transform 0.8s ease;
         }
-        
-        /* Chấm trắng bên trong radio */
-        .model-option.selected .model-radio::after {
-            border-radius: 0 !important;
+
+        .about-hero:hover .about-hero-grid img {
+            transform: scale(1.025);
         }
-        
-        /* ===== Ô NHẬP SỐ ===== */
-        input[type="number"] {
-            border-radius: 3px !important;
+
+        .about-hero-overlay {
+            background: linear-gradient(
+                90deg,
+                rgba(61, 37, 30, 0.72) 0%,
+                rgba(61, 37, 30, 0.42) 48%,
+                rgba(61, 37, 30, 0.55) 100%
+            );
         }
-        
-        /* ===== THANH KÉO ===== */
-        input[type="range"] {
-            border-radius: 2px !important;
+
+        .about-hero-content {
+            position: relative;
+            z-index: 2;
+            min-height: calc(100vh - 110px);
+            max-height: 820px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            width: min(100%, 900px);
+            margin: 0 auto;
+            padding: 70px 8%;
         }
-        
-        input[type="range"]::-webkit-slider-thumb {
-            border-radius: 2px !important;
+
+        .about-eyebrow,
+        .about-section-label {
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
-        
-        /* ===== NÚT DỰ ĐOÁN ===== */
-        .btn-submit {
-            border-radius: 4px !important;
+
+        .about-hero .about-eyebrow {
+            color: #D8CBC4;
+            margin-bottom: 20px;
         }
-        
-        /* ===== NÚT XÓA LỊCH SỬ ===== */
-        .btn-clear {
-            border-radius: 3px !important;
+
+        .about-hero h1 {
+            color: #EFEBE9;
+            text-align: left;
+            font-size: clamp(3rem, 7vw, 6.3rem);
+            line-height: 0.98;
+            letter-spacing: -3px;
+            margin: 0 0 25px;
+            max-width: 760px;
         }
-        
-        /* ===== BẢNG LỊCH SỬ ===== */
-        .history-table {
-            border-radius: 4px !important;
+
+        .about-hero-content > p:not(.about-eyebrow) {
+            max-width: 570px;
+            color: rgba(239, 235, 233, 0.92);
+            font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+            line-height: 1.8;
+            margin-bottom: 30px;
         }
-        
-        .badge-flower {
-            border-radius: 3px !important;
+
+        .about-scroll-btn,
+        .about-next-section-btn {
+            border: 1px solid rgba(139, 108, 92, 0.35);
+            background: #EFEBE9;
+            color: var(--primary-hover);
+            padding: 13px 19px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 22px;
+            transition: all 0.25s ease;
         }
-        
-        /* ===== NÚT MŨI TÊN TRANG ===== */
-        .about-page-arrow {
-            border-radius: 4px !important;
+
+        .about-scroll-btn:hover,
+        .about-next-section-btn:hover {
+            background: var(--primary-light);
+            color: var(--purple-dark);
+            transform: translateY(-2px);
         }
-        
-        /* ===== CHẤM TRANG ===== */
+
+        .about-scroll-btn span,
+        .about-next-section-btn span {
+            font-size: 1.05rem;
+        }
+
+        /* DATASET INTRO */
+        .about-editorial-section {
+            width: min(1180px, 100%);
+            margin: 0 auto;
+            padding: 130px 55px;
+        }
+
+        .about-overview-section {
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+            gap: 100px;
+            align-items: end;
+        }
+
+        .about-editorial-text .about-section-label,
+        .about-section-heading .about-section-label,
+        .about-transition-section .about-section-label,
+        .about-model-hero .about-section-label {
+            margin-bottom: 18px;
+        }
+
+        .about-editorial-text h2,
+        .about-section-heading h2,
+        .about-transition-section h2 {
+            color: var(--purple-dark);
+            font-size: clamp(2.2rem, 4.2vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: -1.8px;
+            font-weight: 800;
+            margin-bottom: 28px;
+        }
+
+        .about-editorial-text > p:not(.about-section-label) {
+            max-width: 650px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .about-stat-block {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid rgba(139, 108, 92, 0.28);
+            border-bottom: 1px solid rgba(139, 108, 92, 0.28);
+        }
+
+        .about-stat {
+            padding: 25px 12px;
+            text-align: center;
+            border-left: 1px solid rgba(139, 108, 92, 0.18);
+        }
+
+        .about-stat:first-child {
+            border-left: none;
+        }
+
+        .about-stat strong {
+            display: block;
+            color: var(--purple-dark);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .about-stat span {
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* FLOWER GALLERY */
+        .about-flower-section {
+            width: 100%;
+            padding: 115px max(35px, calc((100% - 1180px) / 2));
+            background: rgba(216, 203, 196, 0.27);
+        }
+
+        .about-section-heading {
+            width: min(700px, 100%);
+            margin-bottom: 60px;
+        }
+
+        .about-section-heading > p:last-child {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            max-width: 550px;
+        }
+
+        .about-flower-gallery {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(20px, 4vw, 55px);
+            align-items: start;
+        }
+
+        .about-flower-item {
+            min-width: 0;
+        }
+
+        .about-flower-item-offset {
+            margin-top: 70px;
+        }
+
+        .about-flower-image-wrap {
+            width: 100%;
+            aspect-ratio: 0.78;
+            overflow: hidden;
+            background: var(--primary-light);
+        }
+
+        .about-flower-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.65s ease;
+        }
+
+        .about-flower-item:hover .about-flower-image-wrap img {
+            transform: scale(1.045);
+        }
+
+        .about-flower-caption {
+            display: grid;
+            grid-template-columns: 34px 1fr;
+            gap: 16px;
+            padding: 22px 0 0;
+            border-bottom: 1px solid rgba(139, 108, 92, 0.22);
+            padding-bottom: 24px;
+        }
+
+        .about-flower-caption > span {
+            color: var(--primary);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .about-flower-caption h3 {
+            color: var(--purple-dark);
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .about-flower-caption p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            line-height: 1.75;
+        }
+
+        /* TRANSITION */
+        .about-transition-section {
+            width: min(850px, 100%);
+            margin: 0 auto;
+            padding: 145px 35px 160px;
+            text-align: center;
+        }
+
+        .about-transition-section h2 {
+            margin-bottom: 18px;
+        }
+
+        .about-transition-section > p:not(.about-section-label) {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        /* TRANG 2 - MODEL EDITORIAL */
+        .about-model-hero {
+            width: min(900px, 100%);
+            margin: 0 auto;
+            padding: 80px 35px 65px;
+            text-align: center;
+        }
+
+        .about-page-title {
+            color: var(--purple-dark);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin: 0 0 18px;
+            font-weight: 800;
+        }
+
+        .about-page-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .about-model-list {
+            width: min(1120px, 100%);
+            margin: 0 auto;
+            border-top: 1px solid rgba(139, 108, 92, 0.28);
+        }
+
+        .about-model-row {
+            display: grid;
+            grid-template-columns: 70px minmax(260px, 0.85fr) minmax(300px, 1.15fr);
+            gap: 35px;
+            align-items: start;
+            padding: 38px 10px;
+            border-bottom: 1px solid rgba(139, 108, 92, 0.22);
+            transition: background 0.25s ease, padding-left 0.25s ease;
+        }
+
+        .about-model-row:hover {
+            background: rgba(216, 203, 196, 0.25);
+            padding-left: 20px;
+        }
+
+        .about-model-number {
+            color: var(--primary);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding-top: 5px;
+        }
+
+        .about-model-name {
+            color: var(--purple-dark);
+            font-size: 1.22rem;
+            line-height: 1.4;
+            font-weight: 800;
+        }
+
+        .about-model-description {
+            color: var(--text-muted);
+            font-size: 0.84rem;
+            line-height: 1.8;
+        }
+
+        .about-model-footer {
+            text-align: center;
+            padding: 90px 35px 120px;
+        }
+
+        .about-model-footer > p {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+        }
+
+        .about-page-indicator {
+            margin: 0;
+            padding-bottom: 35px;
+        }
+
         .about-page-dot {
-            border-radius: 2px !important;
+            border-radius: 2px;
         }
-        
+
         .about-page-dot.active {
-            border-radius: 2px !important;
+            border-radius: 2px;
         }
-        
-        /* ===== CARD GIỚI THIỆU ===== */
-        /* Giảm bo nhưng vẫn giữ cảm giác mềm nhẹ */
-        .flower-card,
-        .model-intro-card {
-            border-radius: 6px !important;
+
+        /* RESPONSIVE TAB GIỚI THIỆU */
+        @media (max-width: 850px) {
+            .about-hero,
+            .about-hero-content {
+                min-height: 650px;
+            }
+
+            .about-hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-hero-grid img {
+                display: none;
+            }
+
+            .about-hero-grid img:first-child {
+                display: block;
+            }
+
+            .about-overview-section {
+                grid-template-columns: 1fr;
+                gap: 55px;
+            }
+
+            .about-editorial-section {
+                padding: 90px 35px;
+            }
+
+            .about-flower-gallery {
+                grid-template-columns: 1fr;
+                max-width: 620px;
+                margin: 0 auto;
+            }
+
+            .about-flower-item-offset {
+                margin-top: 20px;
+            }
+
+            .about-model-row {
+                grid-template-columns: 55px 1fr;
+                gap: 18px;
+            }
+
+            .about-model-description {
+                grid-column: 2;
+            }
         }
-        
-        /* ===== TAG ===== */
-        .flower-tag {
-            border-radius: 3px !important;
-        }
-        
-        /* ===== MODAL ĐĂNG NHẬP / ĐĂNG KÝ ===== */
-        .auth-modal,
-        .change-password-modal {
-            border-radius: 6px !important;
-        }
-        
-        /* ===== NÚT ĐÓNG MODAL ===== */
-        .auth-modal-close {
-            border-radius: 3px !important;
-        }
-        
-        /* ===== ICON MODAL ===== */
-        .auth-modal-icon {
-            border-radius: 4px !important;
-        }
-        
-        /* ===== Ô NHẬP TÀI KHOẢN / MẬT KHẨU ===== */
-        .auth-input {
-            border-radius: 4px !important;
-        }
-        
-        /* ===== NÚT ĐĂNG NHẬP TRONG MODAL ===== */
-        .auth-submit,
-        .change-password-submit {
-            border-radius: 4px !important;
-        }
-        
-        /* ===== THÔNG BÁO ===== */
-        .auth-message,
-        .change-password-message {
-            border-radius: 4px !important;
-        }
-        
-        .auth-toast {
-            border-radius: 4px !important;
-        }
-        
-        /* ===== MENU USER ===== */
-        .user-dropdown-menu {
-            border-radius: 5px !important;
-        }
-        
-        .user-dropdown-menu button {
-            border-radius: 3px !important;
-        }
-        
-        /* ===== NÚT USER ===== */
-        .user-dropdown-btn {
-            border-radius: 3px !important;
-        }
-        
-        /* ===== NÚT HIỆN / ẨN MẬT KHẨU ===== */
-        .password-toggle {
-            border-radius: 3px !important;
-        }
-        
-        /* ===== HIỆU ỨNG NHẤN NÚT KIỂU GAME ===== */
-        .btn-submit:active:not(:disabled),
-        .auth-submit:active,
-        .change-password-submit:active,
-        .auth-btn:active,
-        .btn-clear:active {
-            transform: translateY(2px) !important;
-        }
-        
-        /* ===== HOVER VẪN GIỮ MÀU HIỆN TẠI ===== */
-        .btn-submit:hover:not(:disabled),
-        .auth-submit:hover,
-        .change-password-submit:hover,
-        .auth-btn:hover,
-        .btn-clear:hover {
-            border-radius: 4px !important;
+
+        @media (max-width: 600px) {
+            .about-hero-content {
+                padding: 55px 25px;
+            }
+
+            .about-hero h1 {
+                font-size: 3rem;
+                letter-spacing: -1.8px;
+            }
+
+            .about-editorial-section,
+            .about-flower-section {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+
+            .about-editorial-text h2,
+            .about-section-heading h2,
+            .about-transition-section h2 {
+                font-size: 2.35rem;
+            }
+
+            .about-stat strong {
+                font-size: 1.55rem;
+            }
+
+            .about-model-hero {
+                padding: 60px 22px 45px;
+            }
+
+            .about-page-title {
+                font-size: 2.45rem;
+                letter-spacing: -1px;
+            }
+
+            .about-model-row {
+                padding: 28px 4px;
+            }
+
+            .about-model-name {
+                font-size: 1.05rem;
+            }
+
+            .about-model-description {
+                font-size: 0.8rem;
+            }
         }
 
     </style>
@@ -1765,252 +2086,225 @@
         <!-- ========== TAB 1: GIỚI THIỆU ========== -->
         <div id="tab-about" class="tab-content active">
 
-            <!-- ======== ĐIỀU HƯỚNG 2 TRANG ======== -->
-            <button
-                id="about-prev-arrow"
-                class="about-page-arrow left"
-                onclick="switchAboutPage(1)"
-                aria-label="Trang trước"
-                style="display: none;"
-            >
-                ←
-            </button>
-
-            <button
-                id="about-next-arrow"
-                class="about-page-arrow right"
-                onclick="switchAboutPage(2)"
-                aria-label="Trang tiếp theo"
-            >
-                →
-            </button>
-
-
             <!-- ==================== TRANG 1 ==================== -->
-            <div
-                id="about-page-1"
-                class="about-page active"
-            >
+            <div id="about-page-1" class="about-page active">
 
-                <h1>Các Loài Hoa Diên Vĩ</h1>
-
-                <p class="subtitle">
-                    Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset
-                </p>
-
-
-                <!-- ======= DANH SÁCH 3 LOÀI HOA ======= -->
-                <div class="flower-grid">
-
-                    <!-- SETOSA -->
-                    <div class="flower-card">
-
-                        <div class="flower-card-img-wrap">
-                            <img
-                                src="/photo/setosa.jpg"
-                                alt="Hoa Diên Vĩ Setosa"
-                                class="flower-card-img"
-                            >
-                        </div>
-
-                        <div class="flower-card-info">
-
-                            <h2>Hoa Diên Vĩ Setosa</h2>
-
-                            <p>
-                                Kích thước cánh hoa nhỏ và ngắn.
-                                Rất dễ phân biệt với hai loài còn lại
-                                nhờ đài hoa nổi bật.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- VERSICOLOR -->
-                    <div class="flower-card">
-
-                        <div class="flower-card-img-wrap">
-                            <img
-                                src="/photo/versicolor.jpg"
-                                alt="Hoa Diên Vĩ Versicolor"
-                                class="flower-card-img"
-                            >
-                        </div>
-
-                        <div class="flower-card-info">
-
-                            <h2>Hoa Diên Vĩ Versicolor</h2>
-
-                            <p>
-                                Kích thước các bộ phận đài hoa và cánh
-                                hoa ở mức trung bình, thể hiện sự cân đối
-                                hài hòa.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- VIRGINICA -->
-                    <div class="flower-card">
-
-                        <div class="flower-card-img-wrap">
-                            <img
-                                src="/photo/virginica.jpg"
-                                alt="Hoa Diên Vĩ Virginica"
-                                class="flower-card-img"
-                            >
-                        </div>
-
-                        <div class="flower-card-info">
-
-                            <h2>Hoa Diên Vĩ Virginica</h2>
-
-                            <p>
-                                Thường có kích thước cánh hoa và đài hoa
-                                lớn nhất trong cả 3 loài hoa Diên Vĩ.
-                            </p>
+                <!-- HERO -->
+                <section class="about-hero">
+                    <div class="about-hero-image">
+                        <div class="about-hero-grid">
+                            <img src="/photo/setosa.jpg" alt="Hoa Diên Vĩ Setosa">
+                            <img src="/photo/versicolor.jpg" alt="Hoa Diên Vĩ Versicolor">
+                            <img src="/photo/virginica.jpg" alt="Hoa Diên Vĩ Virginica">
                         </div>
                     </div>
-                </div>
+
+                    <div class="about-hero-overlay"></div>
+
+                    <div class="about-hero-content">
+                        <p class="about-eyebrow">IRIS DATASET · MACHINE LEARNING</p>
+                        <h1>Các Loài Hoa Diên Vĩ</h1>
+                        <p>
+                            Khám phá ba loài hoa tiêu biểu trong Iris Dataset
+                            và cách Machine Learning nhận diện chúng.
+                        </p>
+                        <button class="about-scroll-btn" type="button" onclick="document.getElementById('about-overview').scrollIntoView({behavior:'smooth'})">
+                            Khám phá
+                            <span>↓</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- GIỚI THIỆU DATASET -->
+                <section id="about-overview" class="about-editorial-section about-overview-section">
+                    <div class="about-editorial-text">
+                        <p class="about-section-label">01 · IRIS DATASET</p>
+                        <h2>Ba loài hoa.<br>Một bộ dữ liệu kinh điển.</h2>
+                        <p>
+                            Iris Dataset là một bộ dữ liệu kinh điển trong lĩnh vực
+                            Machine Learning, được sử dụng để phân loại hoa dựa trên
+                            các đặc trưng về kích thước của đài hoa và cánh hoa.
+                        </p>
+                        <p>
+                            Trong dự án này, dữ liệu được sử dụng để xây dựng và
+                            so sánh nhiều mô hình phân loại khác nhau.
+                        </p>
+                    </div>
+
+                    <div class="about-stat-block">
+                        <div class="about-stat">
+                            <strong>03</strong>
+                            <span>Loài hoa</span>
+                        </div>
+                        <div class="about-stat">
+                            <strong>04</strong>
+                            <span>Đặc trưng</span>
+                        </div>
+                        <div class="about-stat">
+                            <strong>05</strong>
+                            <span>Mô hình</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3 LOÀI HOA -->
+                <section class="about-flower-section">
+                    <div class="about-section-heading">
+                        <p class="about-section-label">02 · THE FLOWERS</p>
+                        <h2>Khám phá ba loài hoa</h2>
+                        <p>
+                            Mỗi loài mang những đặc điểm hình thái khác nhau,
+                            tạo nên cơ sở cho bài toán phân loại.
+                        </p>
+                    </div>
+
+                    <div class="about-flower-gallery">
+                        <article class="about-flower-item">
+                            <div class="about-flower-image-wrap">
+                                <img src="/photo/setosa.jpg" alt="Hoa Diên Vĩ Setosa">
+                            </div>
+                            <div class="about-flower-caption">
+                                <span>01</span>
+                                <div>
+                                    <h3>Setosa</h3>
+                                    <p>
+                                        Kích thước cánh hoa nhỏ và ngắn, dễ phân biệt
+                                        với hai loài còn lại.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="about-flower-item about-flower-item-offset">
+                            <div class="about-flower-image-wrap">
+                                <img src="/photo/versicolor.jpg" alt="Hoa Diên Vĩ Versicolor">
+                            </div>
+                            <div class="about-flower-caption">
+                                <span>02</span>
+                                <div>
+                                    <h3>Versicolor</h3>
+                                    <p>
+                                        Các bộ phận đài hoa và cánh hoa có kích thước
+                                        ở mức trung bình và khá cân đối.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="about-flower-item">
+                            <div class="about-flower-image-wrap">
+                                <img src="/photo/virginica.jpg" alt="Hoa Diên Vĩ Virginica">
+                            </div>
+                            <div class="about-flower-caption">
+                                <span>03</span>
+                                <div>
+                                    <h3>Virginica</h3>
+                                    <p>
+                                        Thường có kích thước cánh hoa và đài hoa lớn
+                                        nhất trong ba loài.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- CHUYỂN SANG TRANG MÔ HÌNH -->
+                <section class="about-transition-section">
+                    <p class="about-section-label">03 · MACHINE LEARNING</p>
+                    <h2>Từ đặc trưng đến dự đoán.</h2>
+                    <p>
+                        Khám phá các mô hình Machine Learning được sử dụng
+                        để phân loại hoa Iris.
+                    </p>
+                    <button class="about-next-section-btn" type="button" onclick="switchAboutPage(2)">
+                        Xem các mô hình
+                        <span>→</span>
+                    </button>
+                </section>
+
             </div>
 
+
             <!-- ==================== TRANG 2 ==================== -->
-            <div
-                id="about-page-2"
-                class="about-page"
-            >
+            <div id="about-page-2" class="about-page">
 
-                <h1 class="about-page-title">
-                    Các Mô Hình Phân Loại
-                </h1>
+                <section class="about-model-hero">
+                    <p class="about-section-label">MACHINE LEARNING</p>
+                    <h1 class="about-page-title">Các Mô Hình Phân Loại</h1>
+                    <p class="about-page-subtitle">
+                        Tìm hiểu các mô hình Machine Learning được sử dụng
+                        để phân loại hoa Iris
+                    </p>
+                </section>
 
-                <p class="about-page-subtitle">
-                    Tìm hiểu các mô hình Machine Learning được sử dụng
-                    để phân loại hoa Iris
-                </p>
+                <section class="about-model-list">
 
-                <div class="model-intro-grid">
-
-                    <!-- SVM -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            01
+                    <article class="about-model-row">
+                        <div class="about-model-number">01</div>
+                        <div class="about-model-name">Support Vector Machine (SVM)</div>
+                        <div class="about-model-description">
+                            SVM là thuật toán phân loại tìm kiếm siêu phẳng tối ưu
+                            để phân tách các nhóm dữ liệu. Mô hình đặc biệt hiệu quả
+                            khi dữ liệu có ranh giới phân lớp rõ ràng.
                         </div>
+                    </article>
 
-                        <h2>
-                            Support Vector Machine (SVM)
-                        </h2>
-
-                        <p>
-                            SVM là thuật toán phân loại tìm kiếm
-                            siêu phẳng tối ưu để phân tách các nhóm
-                            dữ liệu. Mô hình đặc biệt hiệu quả khi
-                            dữ liệu có ranh giới phân lớp rõ ràng.
-                        </p>
-
-                    </div>
-
-                    <!-- LOGISTIC REGRESSION -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            02
+                    <article class="about-model-row">
+                        <div class="about-model-number">02</div>
+                        <div class="about-model-name">Logistic Regression</div>
+                        <div class="about-model-description">
+                            Logistic Regression là mô hình dùng để dự đoán xác suất
+                            một mẫu thuộc về từng lớp. Đây là một phương pháp phổ biến,
+                            đơn giản và dễ diễn giải trong bài toán phân loại.
                         </div>
+                    </article>
 
-                        <h2>
-                            Logistic Regression
-                        </h2>
-
-                        <p>
-                            Logistic Regression là mô hình dùng để
-                            dự đoán xác suất một mẫu thuộc về từng
-                            lớp. Đây là một phương pháp phổ biến,
-                            đơn giản và dễ diễn giải trong bài toán
-                            phân loại.
-                        </p>
-
-                    </div>
-
-                    <!-- KNN -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            03
-                        </div>
-
-                        <h2>
-                            K-Nearest Neighbors (KNN)
-                        </h2>
-
-                        <p>
-                            KNN phân loại một mẫu dựa trên các điểm
-                            dữ liệu gần nó nhất. Kết quả được xác định
-                            dựa trên lớp chiếm ưu thế trong nhóm
+                    <article class="about-model-row">
+                        <div class="about-model-number">03</div>
+                        <div class="about-model-name">K-Nearest Neighbors (KNN)</div>
+                        <div class="about-model-description">
+                            KNN phân loại một mẫu dựa trên các điểm dữ liệu gần nó nhất.
+                            Kết quả được xác định dựa trên lớp chiếm ưu thế trong nhóm
                             các láng giềng được lựa chọn.
-                        </p>
-
-                    </div>
-
-                    <!-- NAIVE BAYES -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            04
                         </div>
+                    </article>
 
-                        <h2>
-                            Naive Bayes
-                        </h2>
-
-                        <p>
-                            Naive Bayes sử dụng định lý Bayes để tính
-                            xác suất một mẫu thuộc về từng lớp.
-                            Mô hình giả định các đặc trưng có tính
+                    <article class="about-model-row">
+                        <div class="about-model-number">04</div>
+                        <div class="about-model-name">Naive Bayes</div>
+                        <div class="about-model-description">
+                            Naive Bayes sử dụng định lý Bayes để tính xác suất một mẫu
+                            thuộc về từng lớp. Mô hình giả định các đặc trưng có tính
                             độc lập có điều kiện.
-                        </p>
-
-                    </div>
-
-                    <!-- LDA -->
-                    <div class="model-intro-card">
-
-                        <div class="model-intro-number">
-                            05
                         </div>
+                    </article>
 
-                        <h2>
-                            Linear Discriminant Analysis (LDA)
-                        </h2>
-
-                        <p>
-                            LDA tìm cách xây dựng các hướng chiếu
-                            giúp các lớp dữ liệu tách biệt tốt nhất.
-                            Phương pháp này vừa có thể giảm chiều
+                    <article class="about-model-row">
+                        <div class="about-model-number">05</div>
+                        <div class="about-model-name">Linear Discriminant Analysis (LDA)</div>
+                        <div class="about-model-description">
+                            LDA tìm cách xây dựng các hướng chiếu giúp các lớp dữ liệu
+                            tách biệt tốt nhất. Phương pháp này vừa có thể giảm chiều
                             dữ liệu vừa hỗ trợ bài toán phân loại.
-                        </p>
+                        </div>
+                    </article>
 
-                    </div>
+                </section>
 
-                </div>
+                <section class="about-model-footer">
+                    <p>Quay lại khám phá các loài hoa</p>
+                    <button class="about-next-section-btn" type="button" onclick="switchAboutPage(1)">
+                        <span>←</span>
+                        Quay lại
+                    </button>
+                </section>
 
-                <!-- ======= CHẤM TRANG ======= -->
                 <div class="about-page-indicator">
-
-                    <span
-                        id="about-dot-1"
-                        class="about-page-dot active"
-                    ></span>
-
-                    <span
-                        id="about-dot-2"
-                        class="about-page-dot"
-                    ></span>
+                    <span id="about-dot-1" class="about-page-dot active"></span>
+                    <span id="about-dot-2" class="about-page-dot"></span>
                 </div>
+
             </div>
         </div>
 
@@ -4768,12 +5062,6 @@ function resetPredictionForm() {
         const page2 =
             document.getElementById("about-page-2");
 
-        const prevArrow =
-            document.getElementById("about-prev-arrow");
-
-        const nextArrow =
-            document.getElementById("about-next-arrow");
-
         const dot1 =
             document.getElementById("about-dot-1");
 
@@ -4800,14 +5088,6 @@ function resetPredictionForm() {
                 page1.classList.add("active");
             }
 
-            if (prevArrow) {
-                prevArrow.style.display = "none";
-            }
-
-            if (nextArrow) {
-                nextArrow.style.display = "flex";
-            }
-
             if (dot1) {
                 dot1.classList.add("active");
             }
@@ -4822,14 +5102,6 @@ function resetPredictionForm() {
 
             if (page2) {
                 page2.classList.add("active");
-            }
-
-            if (prevArrow) {
-                prevArrow.style.display = "flex";
-            }
-
-            if (nextArrow) {
-                nextArrow.style.display = "none";
             }
 
             if (dot1) {
