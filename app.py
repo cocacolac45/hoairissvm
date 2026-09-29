@@ -8,21 +8,16 @@ from fastapi import FastAPI, HTTPException, Header, Depends
 import bcrypt
 import joblib
 import time
-import pyodbc
 import secrets
+import os
+import psycopg2
+
 
 # DATABASE SQL SERVER
-DB_CONNECTION = (
-    "DRIVER={ODBC Driver 17 for SQL Server};"
-    "SERVER=Cammm\\SQLEXPRESS;"
-    "DATABASE=iris_classification;"
-    "Trusted_Connection=yes;"
-    "TrustServerCertificate=yes;"
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 def get_db_connection():
-    return pyodbc.connect(DB_CONNECTION)
-
+    return psycopg2.connect(DATABASE_URL)
 
 # SESSION
 sessions = {}
@@ -34,16 +29,12 @@ encoder = joblib.load("iris_encoder.pkl")
 # LOAD CÁC MÔ HÌNH HUẤN LUYỆN
 models = {
     "SVM": joblib.load("svm_iris_model.pkl"),
-
     "Logistic Regression":
         joblib.load("logistic_regression_iris_model.pkl"),
-
     "KNN":
         joblib.load("knn_iris_model.pkl"),
-
     "Naive Bayes":
         joblib.load("naive_bayes_iris_model.pkl"),
-
     "LDA":
         joblib.load("lda_iris_model.pkl"),
 }
@@ -113,7 +104,6 @@ def home():
         "r",
         encoding="utf-8"
     ) as f:
-
         return f.read()
 
 # HEALTH CHECK
@@ -213,29 +203,22 @@ def register(data: RegisterInput):
         }
 
     except HTTPException:
-
         conn.rollback()
         raise
 
     except Exception as e:
-
         conn.rollback()
-
         raise HTTPException(
             status_code=500,
             detail=f"Lỗi đăng ký: {str(e)}"
         )
 
     finally:
-
         cursor.close()
         conn.close()
 
 
-# =========================================================
-# LOGIN
-# =========================================================
-
+# ====== LOGIN =========
 @app.post("/login")
 def login(data: LoginInput):
 
@@ -253,7 +236,6 @@ def login(data: LoginInput):
     cursor = conn.cursor()
 
     try:
-
         cursor.execute(
             """
             SELECT
@@ -269,7 +251,6 @@ def login(data: LoginInput):
         user = cursor.fetchone()
 
         if not user:
-
             raise HTTPException(
                 status_code=401,
                 detail="Sai tài khoản hoặc mật khẩu"
@@ -305,54 +286,37 @@ def login(data: LoginInput):
         }
 
     except HTTPException:
-
         raise
 
     except Exception as e:
-
         raise HTTPException(
             status_code=500,
             detail=f"Lỗi đăng nhập: {str(e)}"
         )
 
     finally:
-
         cursor.close()
         conn.close()
 
 
-# =========================================================
-# LOGOUT
-# =========================================================
-
+# ======== LOGOUT =========
 @app.post("/logout")
 def logout(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
     token = credentials.credentials
+    sessions.pop(token, None)
 
-    sessions.pop(
-        token,
-        None
-    )
+    return {"message": "Đăng xuất thành công"}
 
-    return {
-        "message": "Đăng xuất thành công"
-    }
-
-# =========================================================
-# CURRENT USER
-# =========================================================
-
+# ======== CURRENT USER ==========
 @app.get("/me")
 def get_me(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
-    user = get_current_user(
-        credentials
-    )
+    user = get_current_user(credentials)
 
     return {
         "logged_in": True,
@@ -360,10 +324,7 @@ def get_me(
         "username": user["username"]
     }
 
-# =========================================================
-# CHANGE PASSWORD
-# =========================================================
-
+# ============== CHANGE PASSWORD =============
 @app.put("/change-password")
 def change_password(
     data: ChangePasswordInput,
@@ -371,9 +332,7 @@ def change_password(
 ):
 
     user = get_current_user(credentials)
-
     user_id = user["user_id"]
-
     current_password = data.current_password
     new_password = data.new_password
 
@@ -406,7 +365,6 @@ def change_password(
     cursor = conn.cursor()
 
     try:
-
         # Lấy mật khẩu hiện tại
         cursor.execute(
             """
@@ -467,51 +425,36 @@ def change_password(
         )
 
         conn.commit()
-
-        return {
-            "message": "Đổi mật khẩu thành công"
-        }
+        return {"message": "Đổi mật khẩu thành công"}
 
     except HTTPException:
-
         conn.rollback()
         raise
 
     except Exception as e:
-
         conn.rollback()
-
         raise HTTPException(
             status_code=500,
             detail=f"Lỗi đổi mật khẩu: {str(e)}"
         )
 
     finally:
-
         cursor.close()
         conn.close()
 
-
-# =========================================================
-# DELETE ACCOUNT
-# =========================================================
-
+# =========== DELETE ACCOUNT =============
 @app.delete("/account")
 def delete_account(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
     user = get_current_user(credentials)
-
     user_id = user["user_id"]
-
     token = credentials.credentials
-
     conn = get_db_connection()
     cursor = conn.cursor()
 
     try:
-
         # Xóa lịch sử dự đoán trước
         cursor.execute(
             """
@@ -535,166 +478,83 @@ def delete_account(
                 status_code=404,
                 detail="Không tìm thấy tài khoản"
             )
-
         conn.commit()
 
         # Xóa session hiện tại
-        sessions.pop(
-            token,
-            None
-        )
+        sessions.pop(token, None)
 
-        return {
-            "message": "Tài khoản đã được xóa thành công"
-        }
+        return {"message": "Tài khoản đã được xóa thành công"}
 
     except HTTPException:
-
         conn.rollback()
         raise
 
     except Exception as e:
-
         conn.rollback()
-
         raise HTTPException(
             status_code=500,
             detail=f"Lỗi xóa tài khoản: {str(e)}"
         )
 
     finally:
-
         cursor.close()
         conn.close()
 
-# =========================================================
-# PREDICT API
-# =========================================================
-
+# ======= PREDICT API ===========
 @app.post("/predict")
 def predict(
     data: IrisInput,
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
-    user = get_current_user(
-        credentials
-    )
-
+    user = get_current_user(credentials)
     user_id = user["user_id"]
 
-
-    # =====================================================
-    # KIỂM TRA MODEL
-    # =====================================================
-
+    # ========== KIỂM TRA MODEL ===========
     if data.model_name not in models:
-
         raise HTTPException(
             status_code=400,
             detail="Mô hình không hợp lệ"
         )
+    selected_model = models[data.model_name]
 
-
-    selected_model = models[
-        data.model_name
-    ]
-
-
-    # =====================================================
-    # TẠO DỮ LIỆU ĐẦU VÀO
-    # =====================================================
-
+    # ============= TẠO DỮ LIỆU ĐẦU VÀO ===============
     features = [[
-
         data.sepal_length,
-
         data.sepal_width,
-
         data.petal_length,
-
         data.petal_width,
-
     ]]
 
+    # ============= SCALE DỮ LIỆU ============
+    features_scaled = scaler.transform(features)
 
-    # =====================================================
-    # SCALE DỮ LIỆU
-    # =====================================================
-
-    features_scaled = scaler.transform(
-        features
-    )
-
-
-    # =====================================================
-    # ĐO THỜI GIAN CHẠY MODEL
-    # =====================================================
-
+    # =========== ĐO THỜI GIAN CHẠY MODEL ===========
     start_time = time.perf_counter()
 
-
-    # =====================================================
-    # DỰ ĐOÁN
-    # =====================================================
-
-    prediction = int(
-        selected_model.predict(
-            features_scaled
-        )[0]
-    )
-
-
+    # ========== DỰ ĐOÁN ==========
+    prediction = int(selected_model.predict(features_scaled)[0])
     end_time = time.perf_counter()
+    execution_time = (end_time - start_time)
 
+    # =========== ĐỔI CLASS ID → TÊN LOÀI ============
+    predicted_class = (encoder.inverse_transform([prediction])[0])
 
-    execution_time = (
-        end_time - start_time
-    )
-
-
-    # =====================================================
-    # ĐỔI CLASS ID → TÊN LOÀI
-    # =====================================================
-
-    predicted_class = (
-        encoder.inverse_transform(
-            [prediction]
-        )[0]
-    )
-
-
-    # =====================================================
-    # TÍNH ĐỘ TIN CẬY
-    # =====================================================
-
+    # ============ TÍNH ĐỘ TIN CẬY =============
     confidence = None
 
     if hasattr(
         selected_model,
         "predict_proba"
     ):
+        probabilities = (selected_model.predict_proba(features_scaled))
+        confidence = float(probabilities.max())
 
-        probabilities = (
-            selected_model.predict_proba(
-                features_scaled
-            )
-        )
-
-        confidence = float(
-            probabilities.max()
-        )
-
-
-    # =====================================================
-    # LƯU VÀO DATABASE
-    # =====================================================
-
+    # ========= LƯU VÀO DATABASE ===========
     conn = get_db_connection()
     cursor = conn.cursor()
 
     try:
-
         cursor.execute(
             """
             INSERT INTO prediction_history (
@@ -712,87 +572,52 @@ def predict(
             """,
             (
                 user_id,
-
                 data.model_name,
-
                 data.sepal_length,
                 data.sepal_width,
-
                 data.petal_length,
                 data.petal_width,
-
                 predicted_class,
-
                 confidence,
-
                 execution_time
             )
         )
-
         conn.commit()
 
     except Exception as e:
-
         conn.rollback()
-
         raise HTTPException(
             status_code=500,
             detail=f"Dự đoán thành công nhưng không thể lưu lịch sử: {str(e)}"
         )
 
     finally:
-
         cursor.close()
         conn.close()
 
 
-    # =====================================================
-    # TRẢ KẾT QUẢ
-    # =====================================================
-
+    # ======== TRẢ KẾT QUẢ ========
     return {
-
-        "class_id":
-            prediction,
-
-        "prediction":
-            predicted_class,
-
-        "model_name":
-            data.model_name,
-
-        "execution_time":
-            execution_time,
-
-        "confidence":
-            confidence,
-
-        "user_id":
-            user_id
-
+        "class_id": prediction,
+        "prediction": predicted_class,
+        "model_name": data.model_name,
+        "execution_time": execution_time,
+        "confidence": confidence,
+        "user_id": user_id
     }
 
-
-# =========================================================
-# GET HISTORY
-# =========================================================
-
+# ========= GET HISTORY ============
 @app.get("/history")
 def get_history(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
-    user = get_current_user(
-        credentials
-    )
-
+    user = get_current_user(credentials)
     user_id = user["user_id"]
-
     conn = get_db_connection()
     cursor = conn.cursor()
 
     try:
-
         cursor.execute(
             """
             SELECT
@@ -814,49 +639,29 @@ def get_history(
         )
 
         rows = cursor.fetchall()
-
         history = []
 
         for row in rows:
-
             history.append({
-
-                "id":
-                    int(row[0]),
-
-                "model":
-                    row[1],
-
-                "sl":
-                    float(row[2]),
-
-                "sw":
-                    float(row[3]),
-
-                "pl":
-                    float(row[4]),
-
-                "pw":
-                    float(row[5]),
-
-                "prediction":
-                    row[6],
-
+                "id": int(row[0]),
+                "model": row[1],
+                "sl": float(row[2]),
+                "sw": float(row[3]),
+                "pl": (row[4]),
+                "pw": float(row[5]),
+                "prediction": row[6],
                 "confidence":
                     float(row[7])
                     if row[7] is not None
                     else None,
-
                 "execution_time":
                     float(row[8])
                     if row[8] is not None
                     else None,
-
                 "created_at":
                     row[9].isoformat()
                     if row[9] is not None
                     else None
-
             })
 
         return {
@@ -865,38 +670,28 @@ def get_history(
         }
 
     except Exception as e:
-
         raise HTTPException(
             status_code=500,
             detail=f"Lỗi lấy lịch sử: {str(e)}"
         )
 
     finally:
-
         cursor.close()
         conn.close()
 
 
-# =========================================================
-# DELETE ALL HISTORY
-# =========================================================
-
+# ========== DELETE ALL HISTORY ==============
 @app.delete("/history")
 def clear_history(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
-    user = get_current_user(
-        credentials
-    )
-
+    user = get_current_user(credentials)
     user_id = user["user_id"]
-
     conn = get_db_connection()
     cursor = conn.cursor()
 
     try:
-
         cursor.execute(
             """
             DELETE FROM prediction_history
@@ -906,38 +701,29 @@ def clear_history(
         )
 
         deleted_count = cursor.rowcount
-
         conn.commit()
 
         return {
             "message":
                 "Đã xóa lịch sử",
-
             "deleted_count":
                 deleted_count
         }
 
     except Exception as e:
-
         conn.rollback()
-
         raise HTTPException(
             status_code=500,
             detail=f"Lỗi xóa lịch sử: {str(e)}"
         )
 
     finally:
-
         cursor.close()
         conn.close()
 
-# =========================================================
-# CHECK PASSWORD
-# =========================================================
-
+# ========= CHECK PASSWORD =============
 class CheckPasswordInput(BaseModel):
     password: str
-
 
 @app.post("/check-password")
 def check_password(
@@ -946,9 +732,7 @@ def check_password(
 ):
 
     user = get_current_user(credentials)
-
     user_id = user["user_id"]
-
     password = data.password
 
     # Kiểm tra mật khẩu có được nhập hay không
@@ -962,7 +746,6 @@ def check_password(
     cursor = conn.cursor()
 
     try:
-
         # Lấy mật khẩu đã hash trong database
         cursor.execute(
             """
@@ -982,29 +765,23 @@ def check_password(
             )
 
         password_hash = user_data[0]
-
         # Kiểm tra mật khẩu nhập vào
         password_correct = bcrypt.checkpw(
             password.encode("utf-8"),
             password_hash.encode("utf-8")
         )
 
-        return {
-            "correct": password_correct
-        }
+        return {"correct": password_correct}
 
     except HTTPException:
-
         raise
 
     except Exception as e:
-
         raise HTTPException(
             status_code=500,
             detail=f"Lỗi kiểm tra mật khẩu: {str(e)}"
         )
 
     finally:
-
         cursor.close()
         conn.close()
