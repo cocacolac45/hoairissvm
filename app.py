@@ -4,7 +4,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import FastAPI, HTTPException, Header, Depends
-from database import get_db_connection
+from database import get_db_connection, init_database
+
 
 import bcrypt
 import joblib
