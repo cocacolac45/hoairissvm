@@ -1331,9 +1331,7 @@
             background: var(--primary);
             color: white;
             box-shadow: 0 8px 25px rgba(139, 108, 92, 0.25);
-            transform:
-                translateY(-50%)
-                scale(1.08);
+            transform: translateY(-50%) scale(1.08);
         }
 
         .about-page-arrow.left {
@@ -1346,10 +1344,13 @@
 
         /* ===== CARD MÔ HÌNH ===== */
         .model-intro-grid {
+            width: 100%;
+            max-width: 1200px;
+            margin: 10px auto 0;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 24px;
-            margin-top: 10px;
+            align-items: stretch;
         }
 
         .model-intro-card {
@@ -1357,7 +1358,7 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-radius: 20px;
-            border: 1px sol
+            border: 1px solid var(--card-border);
             padding: 26px;
             box-shadow:
                 0 10px 30px rgba(139, 108, 92, 0.06);
@@ -1366,6 +1367,7 @@
                 box-shadow 0.3s ease;
             min-height: 220px;
         }
+
         .model-intro-card:hover {
             transform: translateY(-6px);
             box-shadow:
@@ -1375,6 +1377,7 @@
         .model-intro-number {
             width: 38px;
             height: 38px;
+            flex-shrink: 0;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1391,12 +1394,14 @@
             font-size: 1.15rem;
             margin-bottom: 10px;
             font-weight: 800;
+            line-height: 1.4;
         }
 
         .model-intro-card p {
             color: var(--text-muted);
             font-size: 0.86rem;
             line-height: 1.7;
+            margin: 0;
         }
 
         /* ===== INDICATOR ===== */
@@ -1411,67 +1416,63 @@
         .about-page-dot {
             width: 8px;
             height: 8px;
-
             border-radius: 50%;
-
             background: rgba(139, 108, 92, 0.2);
-
             transition: all 0.25s ease;
         }
 
         .about-page-dot.active {
             width: 24px;
-
             border-radius: 10px;
-
             background: var(--primary);
         }
 
         /* ===== ANIMATION ===== */
-
         @keyframes aboutPageSlideIn {
-            from {opacity: 0; transform: translateX(20px);}
-            to {opacity: 1; transform: translateX(0);}
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1050px) {
             .model-intro-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
-
         }
 
         @media (max-width: 700px) {
             .model-intro-grid {
                 grid-template-columns: 1fr;
             }
-
             .about-page-arrow {
                 width: 40px;
                 height: 40px;
                 font-size: 23px;
             }
-
             .about-page-arrow.left {
                 left: 8px;
             }
-
             .about-page-arrow.right {
                 right: 8px;
             }
-
         }
 
         @media (max-width: 600px) {
             .about-page-title {
                 font-size: 1.8rem;
             }
-
             .about-page-subtitle {
                 font-size: 0.88rem;
             }
-
+            .model-intro-card {
+                padding: 22px;
+            }
         }
 
     </style>
@@ -1597,7 +1598,7 @@
                 aria-label="Trang trước"
                 style="display: none;"
             >
-                <
+                ←
             </button>
 
             <button
@@ -1606,7 +1607,7 @@
                 onclick="switchAboutPage(2)"
                 aria-label="Trang tiếp theo"
             >
-                >
+                →
             </button>
 
 
@@ -1697,16 +1698,10 @@
                                 Thường có kích thước cánh hoa và đài hoa
                                 lớn nhất trong cả 3 loài hoa Diên Vĩ.
                             </p>
-
                         </div>
-
                     </div>
-
                 </div>
-                <!-- END .flower-grid -->
-
             </div>
-            <!-- END #about-page-1 -->
 
             <!-- ==================== TRANG 2 ==================== -->
             <div
@@ -1840,14 +1835,9 @@
                         id="about-dot-2"
                         class="about-page-dot"
                     ></span>
-
                 </div>
-
             </div>
-            <!-- END #about-page-2 -->
-
         </div>
-        <!-- END #tab-about -->
 
         <!-- ============= TAB 2: PHÂN LOẠI ============== -->
         <div id="tab-classify" class="tab-content">
