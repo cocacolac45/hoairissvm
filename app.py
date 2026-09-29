@@ -166,7 +166,7 @@ def register(data: RegisterInput):
             """
             SELECT id
             FROM users
-            WHERE username = ?
+            WHERE username = %s
             """,
             (username,)
         )
@@ -189,7 +189,7 @@ def register(data: RegisterInput):
                 username,
                 password_hash
             )
-            VALUES (?, ?)
+            VALUES (%s, %s)
             """,
             (
                 username,
@@ -243,7 +243,7 @@ def login(data: LoginInput):
                 username,
                 password_hash
             FROM users
-            WHERE username = ?
+            WHERE username = %s
             """,
             (username,)
         )
@@ -370,7 +370,7 @@ def change_password(
             """
             SELECT password_hash
             FROM users
-            WHERE id = ?
+            WHERE id = %s
             """,
             (user_id,)
         )
@@ -415,8 +415,8 @@ def change_password(
         cursor.execute(
             """
             UPDATE users
-            SET password_hash = ?
-            WHERE id = ?
+            SET password_hash = %s
+            WHERE id = %s
             """,
             (
                 new_password_hash,
@@ -459,7 +459,7 @@ def delete_account(
         cursor.execute(
             """
             DELETE FROM prediction_history
-            WHERE user_id = ?
+            WHERE user_id = %s
             """,
             (user_id,)
         )
@@ -468,7 +468,7 @@ def delete_account(
         cursor.execute(
             """
             DELETE FROM users
-            WHERE id = ?
+            WHERE id = %s
             """,
             (user_id,)
         )
@@ -568,7 +568,7 @@ def predict(
                 confidence,
                 execution_time
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """,
             (
                 user_id,
@@ -632,7 +632,7 @@ def get_history(
                 execution_time,
                 created_at
             FROM prediction_history
-            WHERE user_id = ?
+            WHERE user_id = %s
             ORDER BY created_at DESC, id DESC
             """,
             (user_id,)
@@ -695,7 +695,7 @@ def clear_history(
         cursor.execute(
             """
             DELETE FROM prediction_history
-            WHERE user_id = ?
+            WHERE user_id = %s
             """,
             (user_id,)
         )
@@ -751,7 +751,7 @@ def check_password(
             """
             SELECT password_hash
             FROM users
-            WHERE id = ?
+            WHERE id = %s
             """,
             (user_id,)
         )
