@@ -1,14 +1,28 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Header
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from database import get_db_connection, init_database
+from fastapi import FastAPI, HTTPException, Header, Depends
 
 import bcrypt
 import joblib
 import time
+import pyodbc
 import secrets
+
+# DATABASE SQL SERVER
+DB_CONNECTION = (
+    "DRIVER={ODBC Driver 17 for SQL Server};"
+    "SERVER=Cammm\\SQLEXPRESS;"
+    "DATABASE=iris_classification;"
+    "Trusted_Connection=yes;"
+    "TrustServerCertificate=yes;"
+)
+
+def get_db_connection():
+    return pyodbc.connect(DB_CONNECTION)
+
 
 # SESSION
 sessions = {}
@@ -40,8 +54,6 @@ app = FastAPI(
     description="Iris Classification with SQL Server",
     version="2.0.0",
 )
-
-init_database()
 
 security = HTTPBearer()
 
@@ -483,6 +495,7 @@ def change_password(
 # =========================================================
 # DELETE ACCOUNT
 # =========================================================
+
 @app.delete("/account")
 def delete_account(
     credentials: HTTPAuthorizationCredentials = Depends(security)
@@ -499,6 +512,16 @@ def delete_account(
 
     try:
 
+        # Xóa lịch sử dự đoán trước
+        cursor.execute(
+            """
+            DELETE FROM prediction_history
+            WHERE user_id = ?
+            """,
+            (user_id,)
+        )
+
+        # Xóa tài khoản
         cursor.execute(
             """
             DELETE FROM users
@@ -515,8 +538,11 @@ def delete_account(
 
         conn.commit()
 
-        # Xóa session
-        sessions.pop(token, None)
+        # Xóa session hiện tại
+        sessions.pop(
+            token,
+            None
+        )
 
         return {
             "message": "Tài khoản đã được xóa thành công"
@@ -756,7 +782,9 @@ def get_history(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
-    user = get_current_user(credentials)
+    user = get_current_user(
+        credentials
+    )
 
     user_id = user["user_id"]
 
@@ -780,7 +808,7 @@ def get_history(
                 created_at
             FROM prediction_history
             WHERE user_id = ?
-            ORDER BY datetime(created_at) DESC, id DESC
+            ORDER BY created_at DESC, id DESC
             """,
             (user_id,)
         )
@@ -792,32 +820,43 @@ def get_history(
         for row in rows:
 
             history.append({
-                "id": int(row["id"]),
 
-                "model": row["model_name"],
+                "id":
+                    int(row[0]),
 
-                "sl": float(row["sepal_length"]),
+                "model":
+                    row[1],
 
-                "sw": float(row["sepal_width"]),
+                "sl":
+                    float(row[2]),
 
-                "pl": float(row["petal_length"]),
+                "sw":
+                    float(row[3]),
 
-                "pw": float(row["petal_width"]),
+                "pl":
+                    float(row[4]),
 
-                "prediction": row["prediction"],
+                "pw":
+                    float(row[5]),
+
+                "prediction":
+                    row[6],
 
                 "confidence":
-                    float(row["confidence"])
-                    if row["confidence"] is not None
+                    float(row[7])
+                    if row[7] is not None
                     else None,
 
                 "execution_time":
-                    float(row["execution_time"])
-                    if row["execution_time"] is not None
+                    float(row[8])
+                    if row[8] is not None
                     else None,
 
-                # SQLite trả created_at dưới dạng string
-                "created_at": row["created_at"]
+                "created_at":
+                    row[9].isoformat()
+                    if row[9] is not None
+                    else None
+
             })
 
         return {
@@ -837,6 +876,7 @@ def get_history(
         cursor.close()
         conn.close()
 
+
 # =========================================================
 # DELETE ALL HISTORY
 # =========================================================
@@ -846,7 +886,9 @@ def clear_history(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
-    user = get_current_user(credentials)
+    user = get_current_user(
+        credentials
+    )
 
     user_id = user["user_id"]
 
@@ -868,8 +910,11 @@ def clear_history(
         conn.commit()
 
         return {
-            "message": "Đã xóa lịch sử",
-            "deleted_count": deleted_count
+            "message":
+                "Đã xóa lịch sử",
+
+            "deleted_count":
+                deleted_count
         }
 
     except Exception as e:
