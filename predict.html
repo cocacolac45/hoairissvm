@@ -2687,16 +2687,9 @@ hr {
 }
 
 /* ===== TAB LỊCH SỬ ===== */
-/* Tiêu đề các cột:
-   STT
-   Mô hình
-   Đài hoa (D × R)
-   Cánh hoa (D × R)
-   Kết quả
-   Thời gian dự đoán
-*/
 .history-table thead th {
     color: #000000 !important;
+    text-shadow: none !important;
 }
 
 /* ===== TAB PHÂN LOẠI ===== */
@@ -2708,22 +2701,30 @@ hr {
     text-shadow: none !important;
     filter: none !important;
 }
-
-#tab-classify .part-number {
-    color: #000000 !important;
-}
-
+        
 /* ===== TAB GIỚI THIỆU ===== */
 /* Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset */
 #about-page-1 .subtitle {
     color: #26351f !important;
+    text-shadow: none !important;
 }
 
-/* Tìm hiểu các mô hình Machine Learning được sử dụng
-   để phân loại hoa Iris */
 #about-page-2 .about-page-subtitle {
     color: #26351f !important;
+    text-shadow: none !important;
 }
+
+.classification-part {
+    color: #26351f !important;
+}
+
+.classification-part .part-title,
+.classification-part .part-number,
+.classification-part label {
+    color: #26351f !important;
+    text-shadow: none !important;
+}
+
 
 </style>
 </head>
@@ -3267,7 +3268,7 @@ hr {
                             <div class="label-row">
 
                                 <label for="sepal_width">
-                                    Chiều rộng đài hoa
+                                     rộng đài hoa
                                 </label>
 
                             </div>
