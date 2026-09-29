@@ -4,6 +4,5 @@ scikit-learn
 joblib
 pydantic
 bcrypt
-pyodbc
 psycopg2-binary
 numpy
