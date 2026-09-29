@@ -4,25 +4,12 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import FastAPI, HTTPException, Header, Depends
+from database import get_db_connection
 
 import bcrypt
 import joblib
 import time
-import pyodbc
 import secrets
-
-# DATABASE SQL SERVER
-DB_CONNECTION = (
-    "DRIVER={ODBC Driver 17 for SQL Server};"
-    "SERVER=Cammm\\SQLEXPRESS;"
-    "DATABASE=iris_classification;"
-    "Trusted_Connection=yes;"
-    "TrustServerCertificate=yes;"
-)
-
-def get_db_connection():
-    return pyodbc.connect(DB_CONNECTION)
-
 
 # SESSION
 sessions = {}
