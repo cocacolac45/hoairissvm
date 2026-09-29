@@ -1,65 +1,71 @@
+import sqlite3
 import os
-import pyodbc
+
+
+DATABASE_PATH = os.getenv(
+    "DB_DATABASE",
+    "iris_classification.db"
+)
 
 
 def get_db_connection():
-
-    driver = os.getenv(
-        "DB_DRIVER",
-        "ODBC Driver 18 for SQL Server"
+    conn = sqlite3.connect(
+        DATABASE_PATH,
+        check_same_thread=False
     )
 
-    server = os.getenv("DB_SERVER")
-    port = os.getenv(
-        "DB_PORT",
-        "1433"
-    )
+    conn.row_factory = sqlite3.Row
 
-    database = os.getenv(
-        "DB_DATABASE",
-        "iris_classification"
-    )
+    return conn
 
-    username = os.getenv("DB_USERNAME")
-    password = os.getenv("DB_PASSWORD")
 
-    # =====================================================
-    # KIỂM TRA ENVIRONMENT VARIABLES
-    # =====================================================
+def init_database():
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
-    required = {
-        "DB_SERVER": server,
-        "DB_USERNAME": username,
-        "DB_PASSWORD": password,
-    }
+    # =========================
+    # USERS
+    # =========================
 
-    missing = [
-        key
-        for key, value in required.items()
-        if not value
-    ]
-
-    if missing:
-        raise RuntimeError(
-            "Thiếu biến môi trường: "
-            + ", ".join(missing)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL UNIQUE,
+            password_hash TEXT NOT NULL
         )
+    """)
 
-    # =====================================================
-    # SQL SERVER CONNECTION
-    # =====================================================
+    # =========================
+    # PREDICTION HISTORY
+    # =========================
 
-    connection_string = (
-        f"DRIVER={{{driver}}};"
-        f"SERVER={server},{port};"
-        f"DATABASE={database};"
-        f"UID={username};"
-        f"PWD={password};"
-        "Encrypt=yes;"
-        "TrustServerCertificate=yes;"
-        "Connection Timeout=30;"
-    )
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS prediction_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-    return pyodbc.connect(
-        connection_string
-    )
+            user_id INTEGER NOT NULL,
+
+            model_name TEXT NOT NULL,
+
+            sepal_length REAL NOT NULL,
+            sepal_width REAL NOT NULL,
+            petal_length REAL NOT NULL,
+            petal_width REAL NOT NULL,
+
+            prediction TEXT NOT NULL,
+
+            confidence REAL,
+
+            execution_time REAL,
+
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+            FOREIGN KEY (user_id)
+                REFERENCES users(id)
+                ON DELETE CASCADE
+        )
+    """)
+
+    conn.commit()
+    cursor.close()
+    conn.close()
