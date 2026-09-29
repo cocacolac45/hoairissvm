@@ -772,9 +772,7 @@ def get_history(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
 
-    user = get_current_user(
-        credentials
-    )
+    user = get_current_user(credentials)
 
     user_id = user["user_id"]
 
@@ -798,7 +796,7 @@ def get_history(
                 created_at
             FROM prediction_history
             WHERE user_id = ?
-            ORDER BY created_at DESC, id DESC
+            ORDER BY datetime(created_at) DESC, id DESC
             """,
             (user_id,)
         )
@@ -810,43 +808,32 @@ def get_history(
         for row in rows:
 
             history.append({
+                "id": int(row["id"]),
 
-                "id":
-                    int(row[0]),
+                "model": row["model_name"],
 
-                "model":
-                    row[1],
+                "sl": float(row["sepal_length"]),
 
-                "sl":
-                    float(row[2]),
+                "sw": float(row["sepal_width"]),
 
-                "sw":
-                    float(row[3]),
+                "pl": float(row["petal_length"]),
 
-                "pl":
-                    float(row[4]),
+                "pw": float(row["petal_width"]),
 
-                "pw":
-                    float(row[5]),
-
-                "prediction":
-                    row[6],
+                "prediction": row["prediction"],
 
                 "confidence":
-                    float(row[7])
-                    if row[7] is not None
+                    float(row["confidence"])
+                    if row["confidence"] is not None
                     else None,
 
                 "execution_time":
-                    float(row[8])
-                    if row[8] is not None
+                    float(row["execution_time"])
+                    if row["execution_time"] is not None
                     else None,
 
-                "created_at":
-                    row[9].isoformat()
-                    if row[9] is not None
-                    else None
-
+                # SQLite trả created_at dưới dạng string
+                "created_at": row["created_at"]
             })
 
         return {
@@ -865,7 +852,6 @@ def get_history(
 
         cursor.close()
         conn.close()
-
 
 # =========================================================
 # DELETE ALL HISTORY
