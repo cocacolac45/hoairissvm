@@ -1475,1258 +1475,182 @@
             }
         }
 
-
         /* =========================================================
-           MINECRAFT PC THEME
-           CHỈ THAY ĐỔI GIAO DIỆN - KHÔNG ĐỤNG HTML / JS
+           MINECRAFT STYLE - GIỮ NGUYÊN MÀU SẮC HIỆN TẠI
+           Chỉ thay đổi hình dáng các thành phần tương tác
            ========================================================= */
-
-        :root {
-            --primary: #55a630;
-            --primary-hover: #3f7f24;
-            --primary-light: #8bc34a;
-            --bg-gradient: #79b84a;
-            --text-dark: #222222;
-            --text-muted: #4b4b4b;
-            --purple-dark: #1f3d14;
-            --accent-pink: #d97b63;
-            --card-bg: #c6c6c6;
-            --card-border: #252525;
-            --mc-dark: #303030;
-            --mc-darker: #1e1e1e;
-            --mc-gray: #8b8b8b;
-            --mc-light: #e5e5e5;
-            --mc-green: #55a630;
-            --mc-grass: #6aaa3d;
-            --mc-dirt: #8b5a2b;
-        }
-
-        * {
-            font-family: "Courier New", Consolas, monospace;
-            box-sizing: border-box;
-        }
-
-        html {
-            image-rendering: pixelated;
-        }
-
-        body {
-            min-height: 100vh;
-            color: #222;
-            padding-top: 82px;
-            background:
-                linear-gradient(rgba(255,255,255,.06), rgba(255,255,255,.06)),
-                repeating-linear-gradient(
-                    0deg,
-                    rgba(0,0,0,.035) 0px,
-                    rgba(0,0,0,.035) 2px,
-                    transparent 2px,
-                    transparent 8px
-                ),
-                #79b84a;
-            background-attachment: fixed;
-        }
-
-        /* ===== THANH TRÊN ===== */
-        .navbar {
-            height: 72px;
-            padding: 0 24px;
-            background:
-                linear-gradient(
-                    to bottom,
-                    #6aaa3d 0,
-                    #6aaa3d 9px,
-                    #4f8f2e 9px,
-                    #4f8f2e 14px,
-                    #704722 14px,
-                    #704722 100%
-                );
-            border: 0;
-            border-bottom: 4px solid #242424;
-            box-shadow:
-                0 4px 0 rgba(255,255,255,.15),
-                0 7px 0 rgba(0,0,0,.28);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-        }
-
-        .nav-logo {
-            font-family: "Courier New", Consolas, monospace;
-            font-style: normal;
-            font-size: 1.35rem;
-            font-weight: 900;
-            letter-spacing: 0;
-            color: #ffffff;
-            text-shadow:
-                2px 2px 0 #333,
-                -1px -1px 0 rgba(255,255,255,.25);
-        }
-
-        .nav-menu {
-            left: 24px;
-            gap: 5px;
-        }
-
+        
+        /* ===== THANH MENU ===== */
         .nav-link {
-            color: #fff;
-            font-size: .82rem;
-            font-weight: 900;
-            padding: 10px 14px;
-            border-radius: 0;
-            border: 2px solid #1e1e1e;
-            background: #686868;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.28),
-                inset -2px -2px 0 rgba(0,0,0,.35);
-            text-shadow: 1px 1px 0 #222;
-            transition: none;
+            border-radius: 4px !important;
         }
-
-        .nav-link:hover {
-            color: #fff;
-            background: #7c7c7c;
-            transform: translateY(-1px);
-        }
-
+        
         .nav-link.active {
-            color: #fff;
-            background: #55a630;
-            border-color: #1e1e1e;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.35),
-                inset -2px -2px 0 rgba(0,0,0,.35);
+            border-radius: 4px !important;
         }
-
-        .auth-area {
-            right: 24px;
-            gap: 7px;
-        }
-
+        
+        /* ===== NÚT ĐĂNG KÝ / ĐĂNG NHẬP ===== */
         .auth-btn {
-            padding: 9px 13px;
-            border-radius: 0;
-            border: 2px solid #202020;
-            background: #686868;
-            color: #fff;
-            font-family: "Courier New", Consolas, monospace;
-            font-weight: 900;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.28),
-                inset -2px -2px 0 rgba(0,0,0,.35);
-            text-shadow: 1px 1px 0 #222;
+            border-radius: 4px !important;
         }
-
-        .auth-btn:hover {
-            background: #7d7d7d;
-            transform: none;
-        }
-
+        
         .logout-btn {
-            background: #9b2f2f;
+            border-radius: 4px !important;
         }
-
-        .logout-btn:hover {
-            background: #b53a3a;
-        }
-
-        .user-dropdown-btn {
-            color: #fff;
-            font-family: "Courier New", Consolas, monospace;
-            font-weight: 900;
-            text-shadow: 1px 1px 0 #222;
-        }
-
-        .user-dropdown-menu {
-            border-radius: 0;
-            width: 205px;
-            padding: 6px;
-            background: #c6c6c6;
-            border: 3px solid #222;
-            box-shadow:
-                inset 2px 2px 0 #fff,
-                inset -2px -2px 0 #555,
-                7px 7px 0 rgba(0,0,0,.3);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-        }
-
-        .user-dropdown-menu button {
-            border-radius: 0;
-            color: #222;
-            font-family: "Courier New", Consolas, monospace;
-            font-weight: 900;
-        }
-
-        .user-dropdown-menu button:hover {
-            background: #55a630;
-            color: #fff;
-        }
-
-        .user-dropdown-menu .delete-account-option:hover {
-            background: #b83232;
-            color: #fff;
-        }
-
-        /* ===== NỘI DUNG ===== */
-        .main-wrapper {
-            max-width: 1450px;
-            padding: 24px 32px 55px;
-        }
-
-        h1,
-        .about-page-title {
-            color: #fff;
-            font-family: "Courier New", Consolas, monospace;
-            font-size: 2rem;
-            font-weight: 900;
-            letter-spacing: 0;
-            text-shadow:
-                3px 3px 0 #333,
-                0 0 0 #333;
-        }
-
-        .subtitle,
-        .about-page-subtitle {
-            color: #f3f3f3;
-            font-weight: 700;
-            text-shadow: 2px 2px 0 rgba(0,0,0,.55);
-        }
-
-        /* ===== CARD KIỂU INVENTORY ===== */
-        .flower-card,
-        .model-intro-card,
-        .page-card {
-            background: #c6c6c6;
-            border: 3px solid #222;
-            border-radius: 0;
-            box-shadow:
-                inset 3px 3px 0 #f4f4f4,
-                inset -3px -3px 0 #555,
-                8px 8px 0 rgba(0,0,0,.28);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-        }
-
-        .flower-card:hover,
-        .model-intro-card:hover {
-            transform: translateY(-3px);
-            box-shadow:
-                inset 3px 3px 0 #fff,
-                inset -3px -3px 0 #555,
-                10px 10px 0 rgba(0,0,0,.32);
-        }
-
-        .flower-card-img-wrap {
-            height: 340px;
-            background:
-                repeating-linear-gradient(
-                    45deg,
-                    #7c7c7c 0,
-                    #7c7c7c 8px,
-                    #888 8px,
-                    #888 16px
-                );
-            border-bottom: 3px solid #222;
-        }
-
-        .flower-card-img {
-            image-rendering: auto;
-        }
-
-        .flower-card-info {
-            padding: 18px;
-        }
-
-        .flower-tag {
-            border-radius: 0;
-            padding: 5px 9px;
-            background: #55a630;
-            color: #fff;
-            border: 2px solid #263b1c;
-            text-shadow: 1px 1px 0 #333;
-        }
-
-        .flower-card-info h2,
-        .model-intro-card h2 {
-            color: #222;
-            font-weight: 900;
-            text-shadow: 1px 1px 0 rgba(255,255,255,.45);
-        }
-
-        .flower-card-info p,
-        .model-intro-card p {
-            color: #333;
-            font-weight: 600;
-        }
-
-        /* ===== PHÂN LOẠI ===== */
-        .classification-layout {
-            gap: 42px;
-        }
-
-        .classification-part:not(:last-child)::after {
-            background:
-                repeating-linear-gradient(
-                    to bottom,
-                    #2b2b2b 0,
-                    #2b2b2b 8px,
-                    #8b8b8b 8px,
-                    #8b8b8b 16px
-                );
-            width: 3px;
-        }
-
-        .part-title {
-            color: #fff;
-            font-weight: 900;
-            text-shadow: 2px 2px 0 #333;
-        }
-
-        .part-number,
-        .model-intro-number {
-            border-radius: 0;
-            background: #686868;
-            color: #fff;
-            border: 2px solid #222;
-            box-shadow:
-                inset 2px 2px 0 #aaa,
-                inset -2px -2px 0 #333;
-        }
-
-        .model-list {
-            gap: 11px;
-        }
-
+        
+        /* ===== Ô CHỌN MÔ HÌNH ===== */
         .model-option {
-            padding: 12px 14px;
-            border-radius: 0;
-            background: #8b8b8b;
-            border: 2px solid #292929;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.28),
-                inset -2px -2px 0 rgba(0,0,0,.35);
-            transition: none;
+            border-radius: 4px !important;
         }
-
-        .model-option:hover {
-            background: #999;
-            transform: none;
-        }
-
-        .model-option.selected {
-            background: #55a630;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.32),
-                inset -2px -2px 0 rgba(0,0,0,.38);
-        }
-
+        
+        /* ===== RADIO MODEL → VUÔNG ===== */
         .model-radio {
-            border-radius: 0;
-            border: 2px solid #222;
-            background: #c6c6c6;
+            border-radius: 3px !important;
         }
-
+        
         .model-option.selected .model-radio {
-            border-color: #222;
-            background: #8bc34a;
-            box-shadow: none;
+            border-radius: 3px !important;
         }
-
+        
+        /* Chấm trắng bên trong radio */
         .model-option.selected .model-radio::after {
-            border-radius: 0;
-            background: #fff;
+            border-radius: 0 !important;
         }
-
-        .model-name,
-        .model-option.selected .model-name {
-            color: #fff;
-            font-weight: 900;
-            text-shadow: 1px 1px 0 #333;
-        }
-
-        .model-description {
-            color: #fff;
-            font-weight: 700;
-            text-shadow: 1px 1px 0 #333;
-        }
-
-        /* ===== INPUT ===== */
-        .label-row label {
-            color: #fff;
-            font-weight: 900;
-            text-shadow: 2px 2px 0 #333;
-        }
-
+        
+        /* ===== Ô NHẬP SỐ ===== */
         input[type="number"] {
-            width: 78px;
-            border: 3px solid #222;
-            border-radius: 0;
-            background: #e8e8e8;
-            color: #222;
-            box-shadow:
-                inset 2px 2px 0 #aaa,
-                inset -2px -2px 0 #fff;
-            font-family: "Courier New", Consolas, monospace;
+            border-radius: 3px !important;
         }
-
-        input[type="number"]:focus {
-            border-color: #55a630;
-            box-shadow:
-                inset 2px 2px 0 #aaa,
-                inset -2px -2px 0 #fff,
-                0 0 0 3px rgba(85,166,48,.35);
-        }
-
+        
+        /* ===== THANH KÉO ===== */
         input[type="range"] {
-            height: 10px;
-            border-radius: 0;
-            background: #444;
-            border: 2px solid #222;
+            border-radius: 2px !important;
         }
-
+        
         input[type="range"]::-webkit-slider-thumb {
-            width: 20px;
-            height: 24px;
-            border-radius: 0;
-            background: #6aaa3d;
-            border: 2px solid #222;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.3),
-                inset -2px -2px 0 rgba(0,0,0,.35);
+            border-radius: 2px !important;
         }
-
+        
         /* ===== NÚT DỰ ĐOÁN ===== */
-        .btn-submit,
-        .auth-submit,
-        .change-password-submit {
-            border: 3px solid #222;
-            border-radius: 0;
-            background: #55a630;
-            color: #fff;
-            font-family: "Courier New", Consolas, monospace;
-            font-weight: 900;
-            text-shadow: 2px 2px 0 #333;
-            box-shadow:
-                inset 3px 3px 0 rgba(255,255,255,.3),
-                inset -3px -3px 0 rgba(0,0,0,.4),
-                4px 4px 0 rgba(0,0,0,.25);
-            transition: none;
+        .btn-submit {
+            border-radius: 4px !important;
         }
-
-        .btn-submit:hover:not(:disabled),
-        .auth-submit:hover,
-        .change-password-submit:hover {
-            transform: translate(2px, 2px);
-            background: #63bd39;
-            box-shadow:
-                inset 3px 3px 0 rgba(255,255,255,.3),
-                inset -3px -3px 0 rgba(0,0,0,.4),
-                2px 2px 0 rgba(0,0,0,.25);
-        }
-
-        .btn-submit:active:not(:disabled),
-        .auth-submit:active,
-        .change-password-submit:active {
-            transform: translate(4px, 4px);
-            box-shadow:
-                inset 3px 3px 0 rgba(0,0,0,.35),
-                inset -3px -3px 0 rgba(255,255,255,.18);
-        }
-
-        /* ===== KẾT QUẢ ===== */
-        .result-label,
-        .execution-label {
-            color: #fff;
-            font-weight: 900;
-            text-shadow: 2px 2px 0 #333;
-        }
-
-        #prediction,
-        #execution-time {
-            color: #fff;
-            font-weight: 900;
-            text-shadow: 2px 2px 0 #333;
-        }
-
-        .progress-bar-wrap {
-            height: 14px;
-            border-radius: 0;
-            background: #333;
-            border: 2px solid #1e1e1e;
-            box-shadow: inset 2px 2px 0 #111;
-        }
-
-        .progress-bar-fill {
-            border-radius: 0;
-            background:
-                repeating-linear-gradient(
-                    90deg,
-                    #55a630 0,
-                    #55a630 12px,
-                    #68bb3e 12px,
-                    #68bb3e 18px
-                );
-        }
-
-        #confidence {
-            color: #fff;
-            font-weight: 900;
-            text-shadow: 2px 2px 0 #333;
-        }
-
-        #flower-image {
-            max-width: 350px;
-            height: 290px;
-            border-radius: 0;
-            border: 4px solid #222;
-            box-shadow:
-                5px 5px 0 rgba(0,0,0,.35),
-                inset 0 0 0 2px rgba(255,255,255,.2);
-        }
-
-        /* ===== LỊCH SỬ ===== */
-        .page-card {
-            padding: 28px;
-        }
-
-        .table-header-flex h1 {
-            color: #fff;
-        }
-
+        
+        /* ===== NÚT XÓA LỊCH SỬ ===== */
         .btn-clear {
-            border: 2px solid #4b1616;
-            border-radius: 0;
-            background: #b83232;
-            color: #fff;
-            font-family: "Courier New", Consolas, monospace;
-            font-weight: 900;
-            text-shadow: 1px 1px 0 #333;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.25),
-                inset -2px -2px 0 rgba(0,0,0,.35);
+            border-radius: 3px !important;
         }
-
-        .btn-clear:hover {
-            background: #d44343;
-        }
-
+        
+        /* ===== BẢNG LỊCH SỬ ===== */
         .history-table {
-            border-radius: 0;
-            background: #c6c6c6;
-            border: 3px solid #222;
+            border-radius: 4px !important;
         }
-
-        .history-table th,
-        .history-table td {
-            border-bottom: 2px solid #777;
-            font-weight: 700;
-        }
-
-        .history-table th {
-            background: #686868;
-            color: #fff;
-            text-shadow: 1px 1px 0 #222;
-        }
-
-        .history-table tbody tr:hover {
-            background: #a7d783;
-        }
-
+        
         .badge-flower {
-            border-radius: 0;
-            padding: 5px 10px;
-            background: #55a630;
-            color: #fff;
-            border: 2px solid #2c551b;
-            text-shadow: 1px 1px 0 #333;
+            border-radius: 3px !important;
         }
-
-        /* ===== TRANG GIỚI THIỆU MÔ HÌNH ===== */
-        .model-intro-card {
-            min-height: 220px;
-        }
-
+        
+        /* ===== NÚT MŨI TÊN TRANG ===== */
         .about-page-arrow {
-            width: 46px;
-            height: 46px;
-            border-radius: 0;
-            background: #686868;
-            color: #fff;
-            border: 3px solid #222;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.3),
-                inset -2px -2px 0 rgba(0,0,0,.35),
-                4px 4px 0 rgba(0,0,0,.25);
-            text-shadow: 2px 2px 0 #333;
+            border-radius: 4px !important;
         }
-
-        .about-page-arrow:hover {
-            background: #55a630;
-            color: #fff;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.3),
-                inset -2px -2px 0 rgba(0,0,0,.35),
-                4px 4px 0 rgba(0,0,0,.25);
-            transform: translateY(-50%);
-        }
-
+        
+        /* ===== CHẤM TRANG ===== */
         .about-page-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 0;
-            background: #555;
-            border: 2px solid #222;
+            border-radius: 2px !important;
         }
-
+        
         .about-page-dot.active {
-            width: 28px;
-            border-radius: 0;
-            background: #55a630;
+            border-radius: 2px !important;
         }
-
-        /* ===== MODAL ĐĂNG NHẬP / ĐỔI MẬT KHẨU ===== */
-        .auth-modal-overlay {
-            background: rgba(0,0,0,.62);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
+        
+        /* ===== CARD GIỚI THIỆU ===== */
+        /* Giảm bo nhưng vẫn giữ cảm giác mềm nhẹ */
+        .flower-card,
+        .model-intro-card {
+            border-radius: 6px !important;
         }
-
+        
+        /* ===== TAG ===== */
+        .flower-tag {
+            border-radius: 3px !important;
+        }
+        
+        /* ===== MODAL ĐĂNG NHẬP / ĐĂNG KÝ ===== */
         .auth-modal,
         .change-password-modal {
-            max-width: 430px;
-            background: #c6c6c6;
-            border: 4px solid #222;
-            border-radius: 0;
-            box-shadow:
-                inset 3px 3px 0 #fff,
-                inset -3px -3px 0 #555,
-                10px 10px 0 rgba(0,0,0,.4);
+            border-radius: 6px !important;
         }
-
-        .auth-modal h2,
-        .change-password-modal h2 {
-            color: #222;
-            text-shadow: 1px 1px 0 #fff;
-        }
-
-        .auth-modal-subtitle,
-        .change-password-subtitle {
-            color: #444;
-            font-weight: 700;
-        }
-
-        .auth-modal-close {
-            border-radius: 0;
-            background: #686868;
-            color: #fff;
-            border: 2px solid #222;
-            box-shadow:
-                inset 1px 1px 0 #aaa,
-                inset -1px -1px 0 #333;
-        }
-
-        .auth-modal-close:hover {
-            background: #b83232;
-            color: #fff;
-            transform: none;
-        }
-
-        .auth-modal-icon {
-            border-radius: 0;
-            background: #55a630;
-            color: #fff;
-            border: 3px solid #222;
-            box-shadow:
-                inset 2px 2px 0 rgba(255,255,255,.3),
-                inset -2px -2px 0 rgba(0,0,0,.35);
-        }
-
-        .auth-form-group label {
-            color: #222;
-            font-weight: 900;
-        }
-
-        .auth-input {
-            border: 3px solid #222;
-            border-radius: 0;
-            background: #eeeeee;
-            color: #222;
-            font-family: "Courier New", Consolas, monospace;
-            box-shadow:
-                inset 2px 2px 0 #aaa,
-                inset -2px -2px 0 #fff;
-        }
-
-        .auth-input:focus {
-            border-color: #55a630;
-            background: #fff;
-            box-shadow:
-                inset 2px 2px 0 #aaa,
-                inset -2px -2px 0 #fff,
-                0 0 0 3px rgba(85,166,48,.3);
-        }
-
-        .password-toggle {
-            color: #444;
-            border-radius: 0;
-        }
-
-        .password-toggle:hover {
-            color: #55a630;
-            transform: translateY(-50%);
-        }
-
-        .auth-switch {
-            color: #444;
-            font-weight: 700;
-        }
-
-        .auth-switch button {
-            color: #3f7f24;
-        }
-
-        .auth-message.success,
-        .change-password-message.success {
-            color: #214b16;
-            background: #b9dc9c;
-            border: 2px solid #46752c;
-            border-radius: 0;
-        }
-
-        .auth-message.error,
-        .change-password-message.error {
-            color: #6f1717;
-            background: #e4aaaa;
-            border: 2px solid #8e2a2a;
-            border-radius: 0;
-        }
-
-        .auth-message.info {
-            color: #5c4311;
-            background: #ead79a;
-            border: 2px solid #8b7124;
-            border-radius: 0;
-        }
-
-        .auth-toast {
-            border-radius: 0;
-            background: #c6c6c6;
-            color: #214b16;
-            border: 3px solid #222;
-            box-shadow:
-                inset 2px 2px 0 #fff,
-                inset -2px -2px 0 #555,
-                5px 5px 0 rgba(0,0,0,.3);
-        }
-
-        .auth-toast.error {
-            color: #7b1717;
-            border-color: #222;
-        }
-
-        .auth-toast.success {
-            color: #214b16;
-            border-color: #222;
-        }
-
-        /* ===== SPINNER ===== */
-        .spinner {
-            width: 18px;
-            height: 18px;
-            border: 3px solid rgba(255,255,255,.35);
-            border-top-color: #fff;
-            border-radius: 0;
-        }
-
-        /* ===== RESPONSIVE MINECRAFT ===== */
-        @media (max-width: 850px) {
-            .navbar {
-                padding-left: 12px;
-                padding-right: 12px;
-            }
-
-            .nav-menu {
-                left: 12px;
-            }
-
-            .auth-area {
-                right: 12px;
-            }
-
-            .nav-link {
-                padding: 8px 10px;
-                font-size: .75rem;
-            }
-
-            .classification-part:not(:last-child)::after {
-                background:
-                    repeating-linear-gradient(
-                        to right,
-                        #2b2b2b 0,
-                        #2b2b2b 8px,
-                        #8b8b8b 8px,
-                        #8b8b8b 16px
-                    );
-                height: 3px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding-top: 118px;
-            }
-
-            .navbar {
-                min-height: 108px;
-                background:
-                    linear-gradient(
-                        to bottom,
-                        #6aaa3d 0,
-                        #6aaa3d 8px,
-                        #4f8f2e 8px,
-                        #4f8f2e 13px,
-                        #704722 13px,
-                        #704722 100%
-                    );
-            }
-
-            .nav-logo {
-                font-size: 1.15rem;
-            }
-
-            .nav-link {
-                padding: 6px 8px;
-                font-size: .68rem;
-            }
-
-            .auth-btn {
-                padding: 7px 9px;
-                font-size: .68rem;
-            }
-
-            .main-wrapper {
-                padding: 20px 14px 40px;
-            }
-
-            h1,
-            .about-page-title {
-                font-size: 1.45rem;
-            }
-
-            .flower-card-img-wrap {
-                height: 270px;
-            }
-
-            .page-card {
-                padding: 18px;
-            }
-        }
-
-    
-/* =========================================================
-   MINECRAFT PC - BRIGHT & FRESH COLOR OVERRIDE
-   Chỉ thay đổi giao diện, giữ nguyên HTML / JS / chức năng
-   ========================================================= */
-
-:root {
-    --primary: #43b047 !important;
-    --primary-hover: #2e8b35 !important;
-    --primary-light: #a8e063 !important;
-    --bg-gradient: #dff7c8 !important;
-    --text-dark: #26351f !important;
-    --text-muted: #5c6f55 !important;
-    --purple-dark: #24752b !important;
-    --accent-pink: #ffcf3f !important;
-
-    --mc-grass: #65c84a;
-    --mc-grass-light: #8ee35c;
-    --mc-leaf: #42b84b;
-    --mc-sky: #70d6f5;
-    --mc-sky-light: #b9efff;
-    --mc-dirt: #b77a43;
-    --mc-dirt-light: #d59a5b;
-    --mc-stone: #d9e0d5;
-    --mc-stone-light: #f2f6ed;
-    --mc-stone-dark: #8d9a87;
-    --mc-wood: #d49a58;
-    --mc-gold: #ffd83d;
-    --mc-red: #f04444;
-}
-
-/* Nền sáng, vẫn giữ cảm giác block Minecraft */
-body {
-    background:
-        linear-gradient(rgba(255,255,255,.18), rgba(255,255,255,.18)),
-        repeating-linear-gradient(
-            0deg,
-            rgba(65,170,55,.10) 0px,
-            rgba(65,170,55,.10) 8px,
-            transparent 8px,
-            transparent 16px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            rgba(255,255,255,.16) 0px,
-            rgba(255,255,255,.16) 8px,
-            transparent 8px,
-            transparent 16px
-        ),
-        #c9efae !important;
-    color: var(--text-dark) !important;
-}
-
-/* Thanh navbar sáng hơn */
-nav,
-.navbar {
-    background:
-        linear-gradient(
-            to bottom,
-            #8ee35c 0%,
-            #62c94c 45%,
-            #4eaf3e 46%,
-            #9a673c 47%,
-            #b77a43 100%
-        ) !important;
-    border-bottom-color: #347b2e !important;
-    box-shadow: 0 5px 0 #347b2e, 0 8px 0 rgba(55,95,45,.18) !important;
-}
-
-/* Chữ navbar */
-nav a,
-nav button,
-.navbar a,
-.navbar button {
-    color: #ffffff !important;
-    text-shadow: 2px 2px 0 #28702b !important;
-}
-
-/* Các nút tab */
-nav a:hover,
-nav button:hover,
-.navbar a:hover,
-.navbar button:hover {
-    background: #8ee35c !important;
-    color: #ffffff !important;
-    box-shadow:
-        inset 0 0 0 3px #d6f7a8,
-        0 4px 0 #347b2e !important;
-}
-
-/* Card / panel sáng */
-.card,
-.container-card,
-.prediction-card,
-.history-card,
-.about-card,
-.auth-card,
-.modal-content {
-    background:
-        linear-gradient(135deg, #f4f8ef 0%, #dfe9d9 100%) !important;
-    border-color: #789174 !important;
-    color: var(--text-dark) !important;
-    box-shadow:
-        inset 4px 4px 0 rgba(255,255,255,.85),
-        inset -4px -4px 0 rgba(110,125,103,.25),
-        0 6px 0 rgba(70,100,65,.25) !important;
-}
-
-/* Tiêu đề */
-h1, h2, h3, h4, h5,
-.section-title,
-.card-title {
-    color: #287c31 !important;
-    text-shadow: 2px 2px 0 #bde99d !important;
-}
-
-/* Ô input sáng */
-input,
-select,
-textarea {
-    background: #ffffff !important;
-    color: #26351f !important;
-    border-color: #79b86d !important;
-    box-shadow:
-        inset 3px 3px 0 rgba(70,110,60,.12),
-        0 2px 0 #a9c99f !important;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #43b047 !important;
-    box-shadow:
-        0 0 0 3px rgba(112,214,82,.28),
-        inset 3px 3px 0 rgba(70,110,60,.10) !important;
-}
-
-/* Model options */
-.model-option,
-.model-card,
-.option-card {
-    background: #edf5e9 !important;
-    border-color: #8ab181 !important;
-    color: #31502c !important;
-}
-
-.model-option:hover,
-.model-card:hover,
-.option-card:hover {
-    background: #d8f4c8 !important;
-    border-color: #52b94b !important;
-}
-
-.model-option.active,
-.model-option.selected,
-.model-card.active,
-.model-card.selected,
-.option-card.active,
-.option-card.selected {
-    background: #91df69 !important;
-    border-color: #2e8b35 !important;
-    color: #ffffff !important;
-    text-shadow: 2px 2px 0 #36752f !important;
-    box-shadow:
-        inset 3px 3px 0 #c9f4a9,
-        inset -3px -3px 0 #3e9638 !important;
-}
-
-/* Nút dự đoán - xanh lá sáng */
-button[type="submit"],
-.predict-btn,
-#predictBtn,
-.btn-primary {
-    background: linear-gradient(#7cda57, #42b447) !important;
-    color: #ffffff !important;
-    border-color: #2e8634 !important;
-    text-shadow: 2px 2px 0 #28702b !important;
-    box-shadow:
-        inset 0 3px 0 rgba(255,255,255,.45),
-        inset 0 -4px 0 rgba(32,105,38,.28),
-        0 5px 0 #347b2e !important;
-}
-
-button[type="submit"]:hover,
-.predict-btn:hover,
-#predictBtn:hover,
-.btn-primary:hover {
-    background: linear-gradient(#91e868, #50c64f) !important;
-    transform: translateY(-1px);
-}
-
-/* Thanh confidence / progress kiểu XP */
-.progress,
-.progress-bar,
-.confidence-bar {
-    background: #c8d4c3 !important;
-    border-color: #789174 !important;
-}
-
-.progress-bar,
-.confidence-fill {
-    background:
-        repeating-linear-gradient(
-            90deg,
-            #9be65b 0px,
-            #9be65b 10px,
-            #73cf48 10px,
-            #73cf48 20px
-        ) !important;
-    box-shadow:
-        inset 0 2px 0 rgba(255,255,255,.5),
-        inset 0 -2px 0 rgba(49,117,40,.28) !important;
-}
-
-/* Kết quả dự đoán */
-.result,
-.prediction-result,
-.result-box {
-    background: linear-gradient(135deg, #f7fff0, #d8f5c6) !important;
-    border-color: #6fbb5e !important;
-    color: #286b2d !important;
-    box-shadow:
-        inset 3px 3px 0 rgba(255,255,255,.9),
-        inset -3px -3px 0 rgba(75,120,65,.18) !important;
-}
-
-/* Bảng lịch sử */
-table {
-    background: #eef5e9 !important;
-    color: #30472b !important;
-    border-color: #7c9a74 !important;
-}
-
-thead,
-th {
-    background: linear-gradient(#8ee35c, #55bd47) !important;
-    color: #ffffff !important;
-    border-color: #408a38 !important;
-    text-shadow: 2px 2px 0 #36752f !important;
-}
-
-td {
-    background: #f5f8f1 !important;
-    border-color: #b5c7ae !important;
-}
-
-tbody tr:nth-child(even) td {
-    background: #e4f1dd !important;
-}
-
-tbody tr:hover td {
-    background: #c9efb7 !important;
-}
-
-/* Xóa lịch sử - đỏ tươi */
-#clearHistoryBtn,
-.clear-history,
-.delete-history {
-    background: linear-gradient(#ff6868, #e83d3d) !important;
-    color: #ffffff !important;
-    border-color: #a92b2b !important;
-    text-shadow: 2px 2px 0 #9c2a2a !important;
-    box-shadow:
-        inset 0 3px 0 rgba(255,255,255,.4),
-        0 4px 0 #a92b2b !important;
-}
-
-/* Badge / label */
-.badge,
-.tag,
-.label {
-    background: #ffd83d !important;
-    color: #5d4a00 !important;
-    border-color: #c89f13 !important;
-    text-shadow: none !important;
-}
-
-/* Icon / điểm nhấn vàng */
-.icon,
-.stat-icon,
-.result-icon {
-    color: #ffd83d !important;
-    filter: drop-shadow(2px 2px 0 #a98212);
-}
-
-/* Modal đăng nhập / đổi mật khẩu */
-.modal,
-.auth-modal,
-.change-password-modal {
-    background: rgba(42, 92, 39, .30) !important;
-}
-
-.modal-content {
-    background:
-        linear-gradient(135deg, #f7faf3, #dcebd6) !important;
-}
-
-/* Nút đóng */
-.close,
-.close-btn {
-    color: #ffffff !important;
-    background: #f04a4a !important;
-    border-color: #a92f2f !important;
-}
-
-/* Toast */
-.toast,
-.auth-toast {
-    background: #f4f9ed !important;
-    color: #31502c !important;
-    border-color: #6eaa62 !important;
-    box-shadow:
-        4px 4px 0 rgba(67,105,58,.25) !important;
-}
-
-/* Các đường viền phụ */
-hr {
-    border-color: #a7c59d !important;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: #c9dfbf;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #64bd4f;
-    border: 2px solid #dff2d7;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #429c3c;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    body {
-        background-color: #c9efae !important;
-    }
-
-    .card,
-    .container-card,
-    .prediction-card,
-    .history-card,
-    .about-card {
-        box-shadow:
-            inset 3px 3px 0 rgba(255,255,255,.8),
-            inset -3px -3px 0 rgba(110,125,103,.22),
-            0 4px 0 rgba(70,100,65,.22) !important;
-    }
-}
-
-/* ===== ĐĂNG NHẬP / ĐĂNG KÝ: NỀN KHÔNG TRONG SUỐT ===== */
-.auth-modal {
-    background: #f2f6ed !important;
-    opacity: 1 !important;
-    backdrop-filter: none !important;
-}
-
-/* ===== TAB LỊCH SỬ ===== */
-.history-table thead th {
-    color: #000000 !important;
-    text-shadow: none !important;
-}
-
-/* ===== TAB PHÂN LOẠI ===== */
-#tab-classify .part-title,
-#tab-classify .part-number,
-#tab-classify .part-title *,
-#tab-classify .part-number * {
-    color: #000000 !important;
-    text-shadow: none !important;
-    filter: none !important;
-}
         
-/* ===== TAB GIỚI THIỆU ===== */
-/* Khám phá 3 loài hoa chính trong bộ dữ liệu Iris Dataset */
-#about-page-1 .subtitle {
-    color: #26351f !important;
-    text-shadow: none !important;
-}
+        /* ===== NÚT ĐÓNG MODAL ===== */
+        .auth-modal-close {
+            border-radius: 3px !important;
+        }
+        
+        /* ===== ICON MODAL ===== */
+        .auth-modal-icon {
+            border-radius: 4px !important;
+        }
+        
+        /* ===== Ô NHẬP TÀI KHOẢN / MẬT KHẨU ===== */
+        .auth-input {
+            border-radius: 4px !important;
+        }
+        
+        /* ===== NÚT ĐĂNG NHẬP TRONG MODAL ===== */
+        .auth-submit,
+        .change-password-submit {
+            border-radius: 4px !important;
+        }
+        
+        /* ===== THÔNG BÁO ===== */
+        .auth-message,
+        .change-password-message {
+            border-radius: 4px !important;
+        }
+        
+        .auth-toast {
+            border-radius: 4px !important;
+        }
+        
+        /* ===== MENU USER ===== */
+        .user-dropdown-menu {
+            border-radius: 5px !important;
+        }
+        
+        .user-dropdown-menu button {
+            border-radius: 3px !important;
+        }
+        
+        /* ===== NÚT USER ===== */
+        .user-dropdown-btn {
+            border-radius: 3px !important;
+        }
+        
+        /* ===== NÚT HIỆN / ẨN MẬT KHẨU ===== */
+        .password-toggle {
+            border-radius: 3px !important;
+        }
+        
+        /* ===== HIỆU ỨNG NHẤN NÚT KIỂU GAME ===== */
+        .btn-submit:active:not(:disabled),
+        .auth-submit:active,
+        .change-password-submit:active,
+        .auth-btn:active,
+        .btn-clear:active {
+            transform: translateY(2px) !important;
+        }
+        
+        /* ===== HOVER VẪN GIỮ MÀU HIỆN TẠI ===== */
+        .btn-submit:hover:not(:disabled),
+        .auth-submit:hover,
+        .change-password-submit:hover,
+        .auth-btn:hover,
+        .btn-clear:hover {
+            border-radius: 4px !important;
+        }
 
-#about-page-2 .about-page-subtitle {
-    color: #26351f !important;
-    text-shadow: none !important;
-}
-
-.classification-part {
-    color: #26351f !important;
-}
-
-.classification-part .part-title,
-.classification-part .part-number,
-.classification-part label {
-    color: #26351f !important;
-    text-shadow: none !important;
-}
-
-
-</style>
+    </style>
 </head>
 
 <body>
@@ -3268,7 +2192,7 @@ hr {
                             <div class="label-row">
 
                                 <label for="sepal_width">
-                                     rộng đài hoa
+                                    Chiều rộng đài hoa
                                 </label>
 
                             </div>
