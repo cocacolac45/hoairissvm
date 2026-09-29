@@ -43,6 +43,8 @@ app = FastAPI(
     version="2.0.0",
 )
 
+init_database()
+
 security = HTTPBearer()
 
 # STATIC PHOTO
