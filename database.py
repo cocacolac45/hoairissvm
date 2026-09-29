@@ -16,8 +16,10 @@ def get_db_connection():
 
     conn.row_factory = sqlite3.Row
 
-    return conn
+    # Bật foreign key của SQLite
+    conn.execute("PRAGMA foreign_keys = ON")
 
+    return conn
 
 def init_database():
     conn = get_db_connection()
